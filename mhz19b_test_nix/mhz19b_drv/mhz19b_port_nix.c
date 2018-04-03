@@ -45,7 +45,7 @@ void portUsartInit(void){
  *
  * Port specific code.
  */
-void portUsartSendByte(int usart, uint8_t byte){
+void portUsartSendByte(portUsartDesc_t usart, uint8_t byte){
 	uint8_t _byte = byte;
 	write(usart, &_byte, 1);
 	tcdrain(usart);

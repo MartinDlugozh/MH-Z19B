@@ -98,12 +98,12 @@ void mhzCleanBuffer(mhz19bData_t* mhz){
  * No response.
  *
  * Input:
- * 	int usart - usart port descriptor or address (!can be changed in some ports!);
+ * 	portUsartDesc_t usart - usart port descriptor or address;
  * 	mhz19bData_t* mhz - MH-Z19B working structure;
  * 	uint16_t range - detection range: can be MHZ19B_RANGE_LOW (max 2000ppm)
  * 						or MHZ19B_RANGE_HIGH (max 5000ppm).
  */
-void mhzSetRange(int usart, mhz19bData_t* mhz, uint16_t range){
+void mhzSetRange(portUsartDesc_t usart, mhz19bData_t* mhz, uint16_t range){
 	mhz->range.u16 = range;
 
 	memset(mhz->packet.buff, 0, MHZ19B_PACKET_LENGTH);
@@ -126,11 +126,11 @@ void mhzSetRange(int usart, mhz19bData_t* mhz, uint16_t range){
  * No response.
  *
  * Input:
- * 	int usart - usart port descriptor or address (!can be changed in some ports!);
+ * 	portUsartDesc_t usart - usart port descriptor or address;
  * 	mhz19bData_t* mhz - MH-Z19B working structure;
  * 	uint8_t autocal - ABC autocalibration: 0 - disable; 1 - enable.
  */
-void mhzSetAutocal(int usart, mhz19bData_t* mhz, uint8_t autocal){
+void mhzSetAutocal(portUsartDesc_t usart, mhz19bData_t* mhz, uint8_t autocal){
 	memset(mhz->packet.buff, 0, MHZ19B_PACKET_LENGTH);
 	mhz->packet.buff[MHZ19B_CMD_BUF_STX] = MHZ19B_STX;			// STX
 	mhz->packet.buff[MHZ19B_CMD_BUF_SEN] = MHZ19B_SENSOR;		// SEN
@@ -154,10 +154,10 @@ void mhzSetAutocal(int usart, mhz19bData_t* mhz, uint8_t autocal){
  * No response.
  *
  * Input:
- * 	int usart - usart port descriptor or address (!can be changed in some ports!);
+ * 	portUsartDesc_t usart - usart port descriptor or address;
  * 	mhz19bData_t* mhz - MH-Z19B working structure.
  */
-void mhzCalZeroPoint(int usart, mhz19bData_t* mhz){
+void mhzCalZeroPoint(portUsartDesc_t usart, mhz19bData_t* mhz){
 	memset(mhz->packet.buff, 0, MHZ19B_PACKET_LENGTH);
 	mhz->packet.buff[MHZ19B_CMD_BUF_STX] = MHZ19B_STX;			// STX
 	mhz->packet.buff[MHZ19B_CMD_BUF_SEN] = MHZ19B_SENSOR;		// SEN
@@ -178,11 +178,11 @@ void mhzCalZeroPoint(int usart, mhz19bData_t* mhz){
  * No response.
  *
  * Input:
- * 	int usart - usart port descriptor or address (!can be changed in some ports!);
+ * 	portUsartDesc_t usart - usart port descriptor or address;
  * 	mhz19bData_t* mhz - MH-Z19B working structure;
  * 	uint16_t span - span point value.
  */
-void mhzCalSpanPoint(int usart, mhz19bData_t* mhz, uint16_t span){
+void mhzCalSpanPoint(portUsartDesc_t usart, mhz19bData_t* mhz, uint16_t span){
 	mhz19bSpan_t _span;
 	_span.u16 = span;
 
@@ -203,7 +203,7 @@ void mhzCalSpanPoint(int usart, mhz19bData_t* mhz, uint16_t span){
  * MH-Z19B - Sensor initialization
  *
  * Input:
- * 	int usart - usart port descriptor or address (!can be changed in some ports!);
+ * 	portUsartDesc_t usart - usart port descriptor or address;
  * 	mhz19bData_t* mhz - MH-Z19B working structure (usually global variable structure);
  * 	uint16_t range - detection range: can be MHZ19B_RANGE_LOW (max 2000ppm)
  * 						or MHZ19B_RANGE_HIGH (max 5000ppm).
@@ -214,7 +214,7 @@ void mhzCalSpanPoint(int usart, mhz19bData_t* mhz, uint16_t span){
  *	mhzSensorInit(&mhzSensor, MHZ19B_RANGE_HIGH);	// init MH-Z19B
  *	/.../
  */
-void mhzSensorInit(int usart, mhz19bData_t* mhz, uint16_t range){
+void mhzSensorInit(portUsartDesc_t usart, mhz19bData_t* mhz, uint16_t range){
 	memset(mhz, 0, sizeof(mhz19bData_t));
 	portUsartInit();
 	mhzSetRange(usart, mhz, range);
@@ -228,10 +228,10 @@ void mhzSensorInit(int usart, mhz19bData_t* mhz, uint16_t range){
  * Send data request (MHZ19B_CMD_READ command) to the sensor.
  *
  * Input:
- * 	int usart - usart port descriptor or address (!can be changed in some ports!);
+ * 	portUsartDesc_t usart - usart port descriptor or address;
  * 	mhz19bData_t* mhz - MH-Z19B working structure.
  */
-void mhzRequestData(int usart, mhz19bData_t* mhz){
+void mhzRequestData(portUsartDesc_t usart, mhz19bData_t* mhz){
 	memset(mhz->packet.buff, 0, MHZ19B_PACKET_LENGTH);
 	mhz->packet.buff[MHZ19B_CMD_BUF_STX] = MHZ19B_STX;			// STX
 	mhz->packet.buff[MHZ19B_CMD_BUF_SEN] = MHZ19B_SENSOR;		// SEN

@@ -148,6 +148,7 @@ void help(int argc, char* argv[])
 
 int main(int argc, char* argv[]){
 	help(argc, argv);
+	uint64_t timeStartup = microsSinceEpoch();
 	uint64_t time = microsSinceEpoch();
 	uint64_t timeNoResponse = microsSinceEpoch();
 
@@ -202,7 +203,8 @@ int main(int argc, char* argv[]){
 			if((mhzSensor.result == mhzResRxDone) || (mhzSensor.packet.rxState == mhzRxData)){
 				mhzSensor.result = mhzParsePacket(&mhzSensor);
 				time = microsSinceEpoch();
-				fprintf(stdout, "%s*OK*%s %lu: CO2=%d, T=%d \n", GREEN, NC, time, mhzSensor.co2, mhzSensor.temperature);
+				fprintf(stdout, "%s*OK*%s Uptime = %lu: CO2 = %d, T = %d \n",
+						GREEN, NC, ((time - timeStartup)/1000), mhzSensor.co2, mhzSensor.temperature);
 				fprintf(logfile, "%lu, %d, %d, %d, %d \n", time, mhzSensor.co2, mhzSensor.temperature, mhzSensor._s, mhzSensor._u);
 				sleep(2);
 				REQ:

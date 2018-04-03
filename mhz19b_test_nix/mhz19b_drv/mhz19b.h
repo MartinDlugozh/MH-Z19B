@@ -114,16 +114,16 @@ typedef struct _mhz19bData{
 HEADER SECTION
 -----------------------------------------------------------------------------*/
 void 			portUsartInit			(void);
-void 			portUsartSendByte		(int usart, uint8_t byte);
+void 			portUsartSendByte		(portUsartDesc_t usart, uint8_t byte);
 uint8_t 		mhzGetCheckSum			(uint8_t *packet);
 mhz19bResult_t 	mhzCheckBufferOverflow	(mhz19bData_t* mhz);
 void 			mhzCleanBuffer			(mhz19bData_t* mhz);
-void 			mhzSetRange				(int usart, mhz19bData_t* mhz, uint16_t range);
-void 			mhzSetAutocal			(int usart, mhz19bData_t* mhz, uint8_t autocal);
-void 			mhzCalZeroPoint			(int usart, mhz19bData_t* mhz);
-void 			mhzCalSpanPoint			(int usart, mhz19bData_t* mhz, uint16_t span);
-void 			mhzSensorInit			(int usart, mhz19bData_t* mhz, uint16_t range);
-void 			mhzRequestData			(int usart, mhz19bData_t* mhz);
+void 			mhzSetRange				(portUsartDesc_t usart, mhz19bData_t* mhz, uint16_t range);
+void 			mhzSetAutocal			(portUsartDesc_t usart, mhz19bData_t* mhz, uint8_t autocal);
+void 			mhzCalZeroPoint			(portUsartDesc_t usart, mhz19bData_t* mhz);
+void 			mhzCalSpanPoint			(portUsartDesc_t usart, mhz19bData_t* mhz, uint16_t span);
+void 			mhzSensorInit			(portUsartDesc_t usart, mhz19bData_t* mhz, uint16_t range);
+void 			mhzRequestData			(portUsartDesc_t usart, mhz19bData_t* mhz);
 mhz19bResult_t 	mhzRxByteCallback		(mhz19bData_t* mhz, uint8_t byte);
 uint16_t 		mhzGetCo2				(mhz19bDataPacket_t* packet, uint16_t range, mhz19bResult_t* result);
 uint8_t 		mhzGetTemperature		(mhz19bDataPacket_t* packet, mhz19bResult_t* result);
